@@ -15725,15 +15725,26 @@ Main = (function()
 		Lib.FastWait()
 
 		-- Init other modules
-		intro.SetProgress("Initializing Modules",0.8)
-		Explorer.Init()
-		Properties.Init()
-		ScriptViewer.Init()
-		Console.Init()
-		SaveInstance.Init()
-		ModelViewer.Init()
-		SettingsWindow.Init()
 		--SecretServicePanel.Init()
+
+	intro.SetProgress("Initializing Modules",0.8)
+	local initOrder = {
+		{"Explorer", Explorer},
+		{"Properties", Properties},
+		{"ScriptViewer", ScriptViewer},
+		{"Console", Console},
+		{"SaveInstance", SaveInstance},
+		{"ModelViewer", ModelViewer},
+		{"SettingsWindow", SettingsWindow},
+	}
+	for _, entry in ipairs(initOrder) do
+		local name, moduleTable = entry[1], entry[2]
+		local ok, err = pcall(moduleTable.Init)
+		if not ok then
+			warn("[Dex++] "..name..".Init() FAILED: "..tostring(err))
+		end
+	end
+
 		
 		
 		if env.readfile and listfiles then
