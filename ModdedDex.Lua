@@ -2,7 +2,7 @@
 	Dex+++
 	Version 1.0
 	
-	Modded by Elijah yoo
+	Modded by Elijah hi
 	
 	Dex+++ is a revival of that one dudes dex, made to fulfill Moon's Dex prophecy.
 ]]
