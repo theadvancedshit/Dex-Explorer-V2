@@ -1,10 +1,7 @@
 --[[
-	Dex++
-	Version 3.0
-	
-	Developed by Chillz
-	
-	Dex++ is a revival of Moon's Dex, made to fulfill Moon's Dex prophecy.
+	ts modded by
+ the man
+elijah
 ]]
 
 local selection
