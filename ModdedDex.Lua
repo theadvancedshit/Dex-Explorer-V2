@@ -6848,11 +6848,34 @@ local function main()
 			corner.CornerRadius = UDim.new(0,10)
 
 			local leftToggle = create({{1,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BorderColor3=Color3.new(0.14117647707462,0.14117647707462,0.14117647707462),BorderMode=2,Font=10,Name="LeftToggle",Position=UDim2.new(0,0,0,-36),Size=UDim2.new(0,16,0,36),Text="<",TextColor3=Color3.new(1,1,1),TextSize=14,}}})
-			local rightToggle = leftToggle:Clone()
-			rightToggle.Name = "RightToggle"
-			rightToggle.Position = UDim2.new(1,-16,0,-36)
-			Lib.ButtonAnim(leftToggle,{Mode = 2,PressColor = Color3.fromRGB(32,32,32)})
-			Lib.ButtonAnim(rightToggle,{Mode = 2,PressColor = Color3.fromRGB(32,32,32)})
+local rightToggle = leftToggle:Clone()
+rightToggle.Name = "RightToggle"
+rightToggle.Position = UDim2.new(1,-16,0,-36)
+
+local leftToggleCorner = Instance.new("UICorner")
+leftToggleCorner.CornerRadius = UDim.new(0,6)
+leftToggleCorner.Parent = leftToggle
+
+local leftToggleMask = Instance.new("Frame")
+leftToggleMask.BackgroundColor3 = leftToggle.BackgroundColor3
+leftToggleMask.BorderSizePixel = 0
+leftToggleMask.Position = UDim2.new(0,0,0,0)
+leftToggleMask.Size = UDim2.new(0,6,1,0)
+leftToggleMask.Parent = leftToggle
+
+local rightToggleCorner = Instance.new("UICorner")
+rightToggleCorner.CornerRadius = UDim.new(0,6)
+rightToggleCorner.Parent = rightToggle
+
+local rightToggleMask = Instance.new("Frame")
+rightToggleMask.BackgroundColor3 = rightToggle.BackgroundColor3
+rightToggleMask.BorderSizePixel = 0
+rightToggleMask.Position = UDim2.new(1,-6,0,0)
+rightToggleMask.Size = UDim2.new(0,6,1,0)
+rightToggleMask.Parent = rightToggle
+
+Lib.ButtonAnim(leftToggle,{Mode = 2,PressColor = Color3.fromRGB(32,32,32)})
+Lib.ButtonAnim(rightToggle,{Mode = 2,PressColor = Color3.fromRGB(32,32,32)})
 
 			leftToggle.MouseButton1Click:Connect(function()
 				static.ToggleSide("left")
@@ -15198,7 +15221,7 @@ Main = (function()
 			{9,"Frame",{BackgroundColor3=Color3.fromRGB(99,102,241),BorderSizePixel=0,Name="Bar",Parent={8},Size=UDim2.new(0,0,1,0),}},
 			{9.1,"UICorner",{CornerRadius=UDim.new(1,0),Parent={9},}},
 			{10,"ImageLabel",{Visible=false,BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://2764171053",ImageColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),Parent={8},ScaleType=1,Size=UDim2.new(1,0,1,0),SliceCenter=Rect.new(2,2,254,254),}},
-{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Diddy..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
+{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Elijah..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{13,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Version",Parent={2},Position=UDim2.new(1,-110,1,-35),Size=UDim2.new(0,105,0,20),Text=Main.Version,TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
 			{14,"UIGradient",{Parent={13},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{15,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Image="rbxassetid://1427967925",Name="Outlines",Parent={2},Position=UDim2.new(0,-5,0,-5),ScaleType=1,Size=UDim2.new(1,10,1,10),SliceCenter=Rect.new(6,6,25,25),TileSize=UDim2.new(0,20,0,20),Visible=false,}},			{16,"UIGradient",{Parent={15},Rotation=-30,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
