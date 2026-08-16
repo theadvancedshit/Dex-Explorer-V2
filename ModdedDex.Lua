@@ -13170,51 +13170,51 @@ local function main()
 	end
 	
 	local function AddTextbox(title, default, sizeX)
-		default = tostring(default)
-		local frame = Lib.Frame.new()
-		frame.Gui.Parent = ListFrame
-		frame.Gui.Transparency = 1
-		frame.Gui.Size = UDim2.new(1,0,0,20)
+	default = tostring(default)
+	local frame = Lib.Frame.new()
+	frame.Gui.Parent = ListFrame
+	frame.Gui.Transparency = 1
+	frame.Gui.Size = UDim2.new(1,0,0,20)
 
-		local listlayout = Instance.new("UIListLayout")
-		listlayout.Parent = frame.Gui
-		listlayout.FillDirection = Enum.FillDirection.Horizontal
-		listlayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-		listlayout.VerticalAlignment = Enum.VerticalAlignment.Center
-		listlayout.Padding = UDim.new(0, 10)
+	local listlayout = Instance.new("UIListLayout")
+	listlayout.Parent = frame.Gui
+	listlayout.FillDirection = Enum.FillDirection.Horizontal
+	listlayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	listlayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	listlayout.Padding = UDim.new(0, 10)
 
-		-- Textbox
-		local textbox = Instance.new("TextBox") -- replaced cuz why Moon make every inputs only work on mouse/pc users >:( 
-		textbox.BackgroundColor3 = Settings.Theme.TextBox
-		textbox.BorderColor3 = Settings.Theme.Outline3
-		textbox.ClearTextOnFocus = false
-		textbox.TextColor3 = Settings.Theme.Text
-		textBox.Font = Enum.Font.PatrickHand
-		textbox.TextSize = 14
-		textbox.ZIndex = 2
+	-- Textbox
+	local textbox = Instance.new("TextBox")
+	textbox.BackgroundColor3 = Settings.Theme.TextBox
+	textbox.BorderColor3 = Settings.Theme.Outline3
+	textbox.ClearTextOnFocus = false
+	textbox.TextColor3 = Settings.Theme.Text
+	textbox.Font = Enum.Font.SourceSans
+	textbox.TextSize = 14
+	textbox.ZIndex = 2
 
-		textbox.Parent = frame.Gui
-		if sizeX and type(sizeX) == "number" then
-			textbox.Size = UDim2.new(0,sizeX,0,15)
-		else
-			textbox.Size = UDim2.new(0,45,0,15)
-		end
-		
-		frame.Gui.AutomaticSize = Enum.AutomaticSize.X
-		textbox.AutomaticSize = Enum.AutomaticSize.X
-
-		-- Label
-		local label = Lib.Label.new()
-
-		label.Parent = frame.Gui
-		label.Size = UDim2.new(1, 0,1, -15)
-		label.Text = title
-		label.TextTruncate = Enum.TextTruncate.AtEnd
-
-		textbox.Text = default
-
-		return {TextBox = textbox}
+	textbox.Parent = frame.Gui
+	if sizeX and type(sizeX) == "number" then
+		textbox.Size = UDim2.new(0,sizeX,0,15)
+	else
+		textbox.Size = UDim2.new(0,45,0,15)
 	end
+	
+	frame.Gui.AutomaticSize = Enum.AutomaticSize.X
+	textbox.AutomaticSize = Enum.AutomaticSize.X
+
+	-- Label
+	local label = Lib.Label.new()
+
+	label.Parent = frame.Gui
+	label.Size = UDim2.new(1, 0,1, -15)
+	label.Text = title
+	label.TextTruncate = Enum.TextTruncate.AtEnd
+
+	textbox.Text = default
+
+	return {TextBox = textbox}
+end
 	
 	SaveInstance.Init = function()
 		window = Lib.Window.new()
@@ -13768,51 +13768,51 @@ local function main()
 	end
 	
 	local function AddTextbox(title, default, sizeX)
-		default = default and tostring(default) or ""
-		local frame = Lib.Frame.new()
-		frame.Gui.Parent = ListFrame
-		frame.Gui.Transparency = 1
-		frame.Gui.Size = UDim2.new(1,0,0,20)
+	default = default and tostring(default) or ""
+	local frame = Lib.Frame.new()
+	frame.Gui.Parent = ListFrame
+	frame.Gui.Transparency = 1
+	frame.Gui.Size = UDim2.new(1,0,0,20)
 
-		local listlayout = Instance.new("UIListLayout")
-		listlayout.Parent = frame.Gui
-		listlayout.FillDirection = Enum.FillDirection.Horizontal
-		listlayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-		listlayout.VerticalAlignment = Enum.VerticalAlignment.Center
-		listlayout.Padding = UDim.new(0, 10)
+	local listlayout = Instance.new("UIListLayout")
+	listlayout.Parent = frame.Gui
+	listlayout.FillDirection = Enum.FillDirection.Horizontal
+	listlayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+	listlayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	listlayout.Padding = UDim.new(0, 10)
 
-		-- Textbox
-		local textbox = Instance.new("TextBox") -- replaced cuz why Moon make every inputs only work on mouse/pc users >:( 
-		textbox.BackgroundColor3 = Settings.Theme.TextBox
-		textbox.BorderColor3 = Settings.Theme.Outline3
-		textbox.ClearTextOnFocus = false
-		textbox.TextColor3 = Settings.Theme.Text
-		textBox.Font = Enum.Font.PatrickHand
-		textbox.TextSize = 14
-		textbox.ZIndex = 2
+	-- Textbox
+	local textbox = Instance.new("TextBox")
+	textbox.BackgroundColor3 = Settings.Theme.TextBox
+	textbox.BorderColor3 = Settings.Theme.Outline3
+	textbox.ClearTextOnFocus = false
+	textbox.TextColor3 = Settings.Theme.Text
+	textbox.Font = Enum.Font.SourceSans
+	textbox.TextSize = 14
+	textbox.ZIndex = 2
 
-		textbox.Parent = frame.Gui
-		if sizeX and type(sizeX) == "number" then
-			textbox.Size = UDim2.new(0,sizeX,0,15)
-		else
-			textbox.Size = UDim2.new(0,45,0,15)
-		end
-		
-		frame.Gui.AutomaticSize = Enum.AutomaticSize.X
-		textbox.AutomaticSize = Enum.AutomaticSize.X
-
-		-- Label
-		local label = Lib.Label.new()
-
-		label.Parent = frame.Gui
-		label.Size = UDim2.new(1, 0,1, -15)
-		label.Text = title
-		label.TextTruncate = Enum.TextTruncate.AtEnd
-
-		textbox.Text = default
-
-		return textbox
+	textbox.Parent = frame.Gui
+	if sizeX and type(sizeX) == "number" then
+		textbox.Size = UDim2.new(0,sizeX,0,15)
+	else
+		textbox.Size = UDim2.new(0,45,0,15)
 	end
+	
+	frame.Gui.AutomaticSize = Enum.AutomaticSize.X
+	textbox.AutomaticSize = Enum.AutomaticSize.X
+
+	-- Label
+	local label = Lib.Label.new()
+
+	label.Parent = frame.Gui
+	label.Size = UDim2.new(1, 0,1, -15)
+	label.Text = title
+	label.TextTruncate = Enum.TextTruncate.AtEnd
+
+	textbox.Text = default
+
+	return textbox
+end
 	
 	local function AddDropdown(title, options, default, allowEmpty, sizeX)
 		if allowEmpty == nil then allowEmpty = true end
@@ -15221,7 +15221,7 @@ Main = (function()
 			{9,"Frame",{BackgroundColor3=Color3.fromRGB(99,102,241),BorderSizePixel=0,Name="Bar",Parent={8},Size=UDim2.new(0,0,1,0),}},
 			{9.1,"UICorner",{CornerRadius=UDim.new(1,0),Parent={9},}},
 			{10,"ImageLabel",{Visible=false,BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://2764171053",ImageColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),Parent={8},ScaleType=1,Size=UDim2.new(1,0,1,0),SliceCenter=Rect.new(2,2,254,254),}},
-{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Diddy..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
+{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Elijah..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{13,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Version",Parent={2},Position=UDim2.new(1,-110,1,-35),Size=UDim2.new(0,105,0,20),Text=Main.Version,TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
 			{14,"UIGradient",{Parent={13},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{15,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Image="rbxassetid://1427967925",Name="Outlines",Parent={2},Position=UDim2.new(0,-5,0,-5),ScaleType=1,Size=UDim2.new(1,10,1,10),SliceCenter=Rect.new(6,6,25,25),TileSize=UDim2.new(0,20,0,20),Visible=false,}},			{16,"UIGradient",{Parent={15},Rotation=-30,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
