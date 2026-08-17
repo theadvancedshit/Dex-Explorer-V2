@@ -6256,14 +6256,24 @@ local function main()
 		end
 
 		local function updateSideResizerHeight(side)
-			local total = 0
-			local count = #side.Windows
+			local bottom = 0
 			for i,v in pairs(side.Windows) do
-				total = total + v.SizeY + (i < count and 4 or 0)
+				local main = v.GuiElems and v.GuiElems.Main
+				if main then
+					local windowBottom = main.Position.Y.Offset + main.AbsoluteSize.Y
+					if windowBottom > bottom then
+						bottom = windowBottom
+					end
+				end
 			end
 			if side.Frame and side.Frame:FindFirstChild("Resizer") then
-				side.Frame.Resizer.Size = UDim2.new(0,5,0,total)
+				side.Frame.Resizer.Size = UDim2.new(0,5,0,bottom)
 			end
+		end
+
+		static.RefreshResizers = function()
+			updateSideResizerHeight(leftSide)
+			updateSideResizerHeight(rightSide)
 		end
 
 		local function sideResized(side)
@@ -15820,7 +15830,12 @@ Main.UniversalFont = nil
 
 		-- Init window system, create main menu, show explorer and properties
 		Lib.Window.Init()
-		Main.CreateMainGui()
+	Main.CreateMainGui()
+	Lib.DeferFunc(function()
+		for _,side in pairs({"left","right"}) do end
+		task.wait(0.1)
+		pcall(function() Lib.Window.RefreshResizers() end)
+	end)
 		Explorer.Window:Show({Align = "right", Pos = 1, Size = 0.5, Silent = true})
 		Properties.Window:Show({Align = "right", Pos = 2, Size = 0.5, Silent = true})
 		
