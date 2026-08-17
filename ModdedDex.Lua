@@ -6260,7 +6260,6 @@ local function main()
 		local function updateSideResizerHeight(side)
 			if side.Frame and side.Frame:FindFirstChild("Resizer") then
 				local resizer = side.Frame.Resizer
-				resizer.Position = UDim2.new(resizer.Position.X.Scale, resizer.Position.X.Offset, 0, 6)
 				resizer.Size = UDim2.new(0,5,1,-6)
 
 				if not resizer:FindFirstChild("ResizerCorner") then
