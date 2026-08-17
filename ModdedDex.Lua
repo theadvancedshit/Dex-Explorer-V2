@@ -6258,25 +6258,30 @@ local function main()
 		end
 
 		local function updateSideResizerHeight(side)
-			if side.Frame and side.Frame:FindFirstChild("Resizer") then
-				local resizer = side.Frame.Resizer
-				resizer.Size = UDim2.new(0,5,1,-6)
+			if not (side.Frame and side.Frame:FindFirstChild("Resizer")) then return end
+			local resizer = side.Frame.Resizer
+			local line = resizer:FindFirstChild("Line")
+			if not line then return end
 
-				if not resizer:FindFirstChild("ResizerCorner") then
-					local corner = Instance.new("UICorner")
-					corner.Name = "ResizerCorner"
-					corner.CornerRadius = UDim.new(0,3)
-					corner.Parent = resizer
+			-- find how far down the docked windows actually reach
+			local bottom = 0
+			for i,v in pairs(side.Windows) do
+				local main = v.GuiElems and v.GuiElems.Main
+				if main then
+					local b = main.Position.Y.Offset + main.AbsoluteSize.Y
+					if b > bottom then bottom = b end
 				end
-				if not resizer:FindFirstChild("SquareBottomMask") then
-					local mask = Instance.new("Frame")
-					mask.Name = "SquareBottomMask"
-					mask.BackgroundColor3 = resizer.BackgroundColor3
-					mask.BorderSizePixel = 0
-					mask.Position = UDim2.new(0,0,1,-3)
-					mask.Size = UDim2.new(1,0,0,3)
-					mask.Parent = resizer
-				end
+			end
+
+			-- size the VISIBLE line, not the resizer hitbox (which the drag logic needs intact)
+			line.Position = UDim2.new(line.Position.X.Scale, line.Position.X.Offset, 0, 6)
+			line.Size = UDim2.new(0,1,0,math.max(0,bottom-6))
+
+			if not line:FindFirstChild("LineCorner") then
+				local corner = Instance.new("UICorner")
+				corner.Name = "LineCorner"
+				corner.CornerRadius = UDim.new(0,1)
+				corner.Parent = line
 			end
 		end
 
@@ -15245,7 +15250,7 @@ Main = (function()
 			{3,"Frame",{BackgroundColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),BorderSizePixel=0,ClipsDescendants=true,Name="Holder",Parent={2},Size=UDim2.new(1,0,1,0),}},
 			{3.1,"UICorner",{CornerRadius=UDim.new(0,8),Parent={3},}},
 			{4,"UIGradient",{Parent={3},Rotation=30,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
-			{5,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=4,Name="Title",Parent={3},Position=UDim2.new(0,-190,0,15),Size=UDim2.new(0,100,0,50),Text="  Dex++ (The Mod)",TextColor3=Color3.new(1,1,1),TextSize=50,TextTransparency=1,}},
+			{5,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=4,Name="Title",Parent={3},Position=UDim2.new(0,-190,0,15),Size=UDim2.new(0,100,0,50),Text="   Dex++ (The Mod)",TextColor3=Color3.new(1,1,1),TextSize=50,TextTransparency=1,}},
 			{6,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Desc",Parent={3},Position=UDim2.new(0,-230,0,60),Size=UDim2.new(0,180,0,25),Text="Modded Dex / Explorer",TextColor3=Color3.new(1,1,1),TextSize=18,TextTransparency=1,}},
 			{7,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="StatusText",Parent={3},Position=UDim2.new(0,20,0,110),Size=UDim2.new(0,180,0,25),Text="Fetching API",TextColor3=Color3.new(1,1,1),TextSize=14,TextTransparency=1,}},
 			{8,"Frame",{BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BorderSizePixel=0,Name="ProgressBar",Parent={3},Position=UDim2.new(0,110,0,145),Size=UDim2.new(0,0,0,4),}},
@@ -15253,7 +15258,7 @@ Main = (function()
 			{9,"Frame",{BackgroundColor3=Color3.fromRGB(99,102,241),BorderSizePixel=0,Name="Bar",Parent={8},Size=UDim2.new(0,0,1,0),}},
 			{9.1,"UICorner",{CornerRadius=UDim.new(1,0),Parent={9},}},
 			{10,"ImageLabel",{Visible=false,BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://2764171053",ImageColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),Parent={8},ScaleType=1,Size=UDim2.new(1,0,1,0),SliceCenter=Rect.new(2,2,254,254),}},
-{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Diddy..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
+{11,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Creator",Parent={2},Position=UDim2.new(1,-110,1,-20),Size=UDim2.new(0,105,0,20),Text="Modded by Elijah..?",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},			{12,"UIGradient",{Parent={11},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{13,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Version",Parent={2},Position=UDim2.new(1,-110,1,-35),Size=UDim2.new(0,105,0,20),Text=Main.Version,TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=1,}},
 			{14,"UIGradient",{Parent={13},Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
 			{15,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,BorderSizePixel=0,Image="rbxassetid://1427967925",Name="Outlines",Parent={2},Position=UDim2.new(0,-5,0,-5),ScaleType=1,Size=UDim2.new(1,10,1,10),SliceCenter=Rect.new(6,6,25,25),TileSize=UDim2.new(0,20,0,20),Visible=false,}},			{16,"UIGradient",{Parent={15},Rotation=-30,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1,0),NumberSequenceKeypoint.new(1,1,0),}),}},
