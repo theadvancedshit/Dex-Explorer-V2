@@ -6009,10 +6009,14 @@ local function main()
 			local gui = create({
 				{1,"ScreenGui",{Name="Window",}},
 				{2,"Frame",{Active=true,BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BackgroundTransparency=0,BorderSizePixel=0,ClipsDescendants=true,Name="Main",Parent={1},Position=UDim2.new(0.40000000596046,0,0.40000000596046,0),Size=UDim2.new(0,300,0,300),}},
---[[background mod set to 0.05]]	
+{2.1,"UICorner",{CornerRadius=UDim.new(0,6),Parent={2},}},
+{2.2,"Frame",{BackgroundColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),BorderSizePixel=0,Name="SquareBottomMask",Parent={2},Position=UDim2.new(0,0,1,-6),Size=UDim2.new(1,0,0,6),}},
 {3,"Frame",{BackgroundColor3=Color3.new(0.17647059261799,0.17647059261799,0.17647059261799),BorderSizePixel=0,Name="Content",Parent={2},Position=UDim2.new(0,0,0,20),Size=UDim2.new(1,0,1,-20),ClipsDescendants=true}},
-				{4,"Frame",{BackgroundColor3=Color3.fromRGB(33,33,33),BorderSizePixel=0,Name="Line",Parent={3},Size=UDim2.new(1,0,0,1),}},
+				
+{4,"Frame",{BackgroundColor3=Color3.fromRGB(33,33,33),BorderSizePixel=0,Name="Line",Parent={3},Size=UDim2.new(1,0,0,1),}},
 {5,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BorderSizePixel=0,Name="TopBar",Parent={2},Size=UDim2.new(1,0,0,20),Text = ""}},
+{5.1,"UICorner",{CornerRadius=UDim.new(0,6),Parent={5},}},
+{5.2,"Frame",{BackgroundColor3=Color3.new(0.20392157137394,0.20392157137394,0.20392157137394),BorderSizePixel=0,Name="SquareBottomMask",Parent={5},Position=UDim2.new(0,0,1,-6),Size=UDim2.new(1,0,0,6),}},
 {6,"TextLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Font=3,Name="Title",Parent={5},Position=UDim2.new(0,5,0,0),Size=UDim2.new(1,-10,0,20),Text="Window",TextColor3=Color3.new(1,1,1),TextSize=14,TextXAlignment=0}},
 				{7,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.12549020349979,0.12549020349979,0.12549020349979),BackgroundTransparency=1,BorderSizePixel=0,Font=3,Name="Close",Parent={5},Position=UDim2.new(1,-18,0,2),Size=UDim2.new(0,16,0,16),Text="",TextColor3=Color3.new(1,1,1),TextSize=14,}},
 				{8,"ImageLabel",{BackgroundColor3=Color3.new(1,1,1),BackgroundTransparency=1,Image="rbxassetid://5054663650",Parent={7},Position=UDim2.new(0,3,0,3),Size=UDim2.new(0,10,0,10),}},
@@ -6032,28 +6036,7 @@ local function main()
 				{22,"TextButton",{AutoButtonColor=false,BackgroundColor3=Color3.new(0.27450981736183,0.27450981736183,0.27450981736183),BackgroundTransparency=1,BorderSizePixel=0,Font=3,Name="SouthWest",Parent={14},Position=UDim2.new(0,0,1,-5),Size=UDim2.new(0,5,0,5),Text="",TextColor3=Color3.new(0,0,0),TextSize=14,}},
 			})
 
-			-- rounded top corners (done in code so it can't fail from table key ordering)
-			do
-				local main = gui.Main
-				local topbar = main.TopBar
-
-				local mainCorner = Instance.new("UICorner")
-				mainCorner.CornerRadius = UDim.new(0,6)
-				mainCorner.Parent = main
-
-				local barCorner = Instance.new("UICorner")
-				barCorner.CornerRadius = UDim.new(0,6)
-				barCorner.Parent = topbar
-
-				local barMask = Instance.new("Frame")
-				barMask.Name = "SquareBottomMask"
-				barMask.BackgroundColor3 = topbar.BackgroundColor3
-				barMask.BorderSizePixel = 0
-				barMask.Position = UDim2.new(0,0,1,-6)
-				barMask.Size = UDim2.new(1,0,0,6)
-				barMask.ZIndex = topbar.ZIndex
-				barMask.Parent = topbar
-			end
+			
 
 			local guiMain = gui.Main
 			local guiTopBar = guiMain.TopBar
@@ -6277,30 +6260,25 @@ local function main()
 		end
 
 		local function updateSideResizerHeight(side)
-			if not (side.Frame and side.Frame:FindFirstChild("Resizer")) then return end
-			local resizer = side.Frame.Resizer
-			local line = resizer:FindFirstChild("Line")
-			if not line then return end
+			if side.Frame and side.Frame:FindFirstChild("Resizer") then
+				local resizer = side.Frame.Resizer
+				resizer.Size = UDim2.new(0,5,1,-6)
 
-			-- find how far down the docked windows actually reach
-			local bottom = 0
-			for i,v in pairs(side.Windows) do
-				local main = v.GuiElems and v.GuiElems.Main
-				if main then
-					local b = main.Position.Y.Offset + main.AbsoluteSize.Y
-					if b > bottom then bottom = b end
+				if not resizer:FindFirstChild("ResizerCorner") then
+					local corner = Instance.new("UICorner")
+					corner.Name = "ResizerCorner"
+					corner.CornerRadius = UDim.new(0,3)
+					corner.Parent = resizer
 				end
-			end
-
-			-- size the VISIBLE line, not the resizer hitbox (which the drag logic needs intact)
-			line.Position = UDim2.new(line.Position.X.Scale, line.Position.X.Offset, 0, 6)
-			line.Size = UDim2.new(0,1,0,math.max(0,bottom-6))
-
-			if not line:FindFirstChild("LineCorner") then
-				local corner = Instance.new("UICorner")
-				corner.Name = "LineCorner"
-				corner.CornerRadius = UDim.new(0,1)
-				corner.Parent = line
+				if not resizer:FindFirstChild("SquareBottomMask") then
+					local mask = Instance.new("Frame")
+					mask.Name = "SquareBottomMask"
+					mask.BackgroundColor3 = resizer.BackgroundColor3
+					mask.BorderSizePixel = 0
+					mask.Position = UDim2.new(0,0,1,-3)
+					mask.Size = UDim2.new(1,0,0,3)
+					mask.Parent = resizer
+				end
 			end
 		end
 
